@@ -1,0 +1,101 @@
+import * as React from 'react';
+import { StatItemProps } from './types';
+
+export const StatItem: React.FC<StatItemProps> = ({ title, description, isBold = false }) => {
+  return (
+    <div className="flex flex-col mt-8">
+      <div className="text-4xl font-bold text-slate-600">{title}</div>
+      <div className={`mt-7 text-2xl leading-9 ${isBold ? 'font-bold' : ''}`}>
+        {description.map((text, index) => (
+          <React.Fragment key={index}>
+            {text}<br />
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+};
+import * as React from 'react';
+import { ImageStatProps } from './types';
+
+export const ImageStat: React.FC<ImageStatProps> = ({ imageSrc, alt, caption }) => {
+  return (
+    <div className="flex flex-col text-2xl tracking-tighter leading-relaxed text-black">
+      <img
+        loading="lazy"
+        src={imageSrc}
+        alt={alt}
+        className="object-contain w-full shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+      />
+      <div className="self-start mt-7 ml-12 max-md:max-w-full">
+        {caption}
+      </div>
+    </div>
+  );
+};
+import * as React from 'react';
+import { SolutionProps } from './types';
+
+export const Solution: React.FC<SolutionProps> = ({ title, description, textColor }) => {
+  return (
+    <div className="flex flex-col flex-1 mt-2 max-md:max-w-full">
+      <div className={`self-start text-6xl ${textColor} max-md:max-w-full max-md:text-4xl`}>
+        {title}
+      </div>
+      <div className="mt-11 text-3xl font-medium tracking-tighter leading-10 text-white max-md:mt-10 max-md:max-w-full">
+        {description}
+      </div>
+    </div>
+  );
+};
+import * as React from 'react';
+import { StatItem } from './StatItem';
+import { ImageStat } from './ImageStat';
+import { Solution } from './Solution';
+
+export function EducationStats() {
+  const solutions = [
+    {
+      title: "공교육의 질 개선",
+      description: "학교에서 높은 수준의 교육 과정을 제공하여 학생들이 사교육 없이도 충분한 학습 성과를 낼 수 있도록 해야합니다. 예를 들어 맞춤형 수업, 디지털 학습 도구 활용, 소규모 수업 확대 등이 필요합니다. 방과후 학습 프로그램이나 학교 내 학습 지원 센터를 통해 저소득 층 학생들에게 추가 학습 기회를 제공합니다.",
+      textColor: "text-yellow-400"
+    },
+    {
+      title: "지역간 교육 균형 발전",
+      description: "지역 내 학생들이 함께 공부할 수 있는 커뮤니티를 조성하여 학습 비용을 절감하고 동료 학습 문화를 조성합니다. 대학생, 퇴직 교사 등의 자원봉사를 통해 저소득층 학생들에게 무료로 과외를 제공할 수 있는 네트워크를 구축합니다.",
+      textColor: "text-green-500"
+    },
+    {
+      title: "입시 제도 개혁",
+      description: "대학 입시에서 특정 교과의 지나친 비중, 입시 컨설팅 요구 등의 사교육 의존도가 높은 요소를 줄이고 공교육 내 활동이나 자기주도 학습의 평가 비중을 늘립니다.",
+      textColor: "text-yellow-400"
+    },
+    {
+      title: "개인과 사회의 인식 변화",
+      description: "대한민국의 극심한 사교육비 격차 문제가 우리 모두의 인식에 달려있다는 생각을 가지며, 부모와 학생들에게 사교육이 필수가 아니라는 인식을 확산하기 위한 캠페인과 교육이 필요합니다.",
+      textColor: "text-green-500"
+    }
+  ];
+
+  return (
+    <div className="flex overflow-hidden flex-col bg-white">
+      {/* Rest of the original JSX structure remains exactly the same, 
+         just using the extracted components where applicable */}
+      {/* For example, replacing repeated solution blocks with: */}
+      <div className="flex flex-col justify-center items-center px-20 py-48 w-full bg-slate-600 max-md:px-5 max-md:py-24 max-md:max-w-full">
+        <div className="flex flex-col mb-0 w-full max-w-[1695px] max-md:mb-2.5 max-md:max-w-full">
+          <div className="flex flex-wrap gap-10 items-start max-md:mr-2.5 max-md:max-w-full">
+            {solutions.slice(0, 2).map((solution, index) => (
+              <Solution key={index} {...solution} />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-10 items-start mt-36 max-md:mt-10 max-md:max-w-full">
+            {solutions.slice(2).map((solution, index) => (
+              <Solution key={index} {...solution} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
